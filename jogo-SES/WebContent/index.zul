@@ -1,0 +1,329 @@
+<?page title="Auto Generated index.zul"?>
+<window title="Jogo" border="normal" viewModel="@id('mvvm') @init('br.sandalo.ufmg.dcc.jogo.visualizacao.GestaoDeProjetoMVVM')" apply="org.zkoss.bind.BindComposer">
+	<toolbar id="tb" height="20px" align="end">
+		<button label="iniciar" onClick="@command('iniciar')" />
+	</toolbar>
+	<borderlayout id="gestao" height="600px" visible="@load(mvvm.gestaoDeProjetoVO.estado ne 'AGUARDANDO_INICIO')">
+		<center border="none" flex="true">
+			<borderlayout>
+				<north title="Execução do projeto" maxsize="300" size="30%" splittable="true" collapsible="true">
+					<borderlayout>
+						<center border="none" flex="false">
+							<hbox>
+								<window position="parent" title="Situação do projeto" closable="true" onClick='self.setMode("embedded")' onDoubleClick='self.setMode("overlapped")' sizable="true" width="400px">
+									<vbox>
+										<grid>
+											<rows>
+												<row>
+													<label value="Orcamento:" style="font-weight:bold" />
+													<label value="@bind(mvvm.gestaoDeProjetoVO.projetoVO.orcamento)" />
+													<label value="Tamanho:" style="font-weight:bold" />
+													<label value="@bind(mvvm.gestaoDeProjetoVO.tamanho)" />
+													<label value="Prazo:" style="font-weight:bold" />
+													<label value="@bind(mvvm.gestaoDeProjetoVO.projetoVO.prazo)" />
+												</row>
+											</rows>
+										</grid>
+										<grid>
+											<rows>
+												<row>
+													<cell>
+														<label value="Conclusão do projeto:" style="font-weight:bold" />
+													</cell>
+													<cell>
+														<hbox>
+															<progressmeterjogo id="curr_met" value="@load(mvvm.gestaoDeProjetoVO.percentualDeConclusao)" width="100px" />
+															<label id="curr_step" value="@load(mvvm.gestaoDeProjetoVO.percentualDeConclusao)" />
+															<label value="%" />
+														</hbox>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label value="Prazo de entrega:" style="font-weight:bold" />
+													</cell>
+													<cell>
+														<hbox>
+															<progressmeter value="@load(mvvm.gestaoDeProjetoVO.cronograma)"  onCreate="@command('registraEmComponentsToReload',component=self)" width="100px" />
+															<label onCreate="@command('registraEmComponentsToReload',component=self)" value="@load(mvvm.gestaoDeProjetoVO.cronograma)" />
+															<label value="%" />
+														</hbox>
+													</cell>
+												</row>
+												<row>
+													<cell>
+														<label value="Orçamento gasto:" style="font-weight:bold" />
+													</cell>
+													<cell>
+														<hbox>
+															<progressmeter value="@load(mvvm.gestaoDeProjetoVO.percentualGasto)"  onCreate="@command('registraEmComponentsToReload',component=self)" width="100px" />
+															<label onCreate="@command('registraEmComponentsToReload',component=self)" value="@load(mvvm.gestaoDeProjetoVO.percentualGasto)" />
+															<label value="%" />
+														</hbox>
+													</cell>
+												</row>
+											</rows>
+										</grid>
+									</vbox>
+								</window>
+								<window position="parent" title="Informações do projeto" closable="true" onClick='self.setMode("embedded")' onDoubleClick='self.setMode("overlapped")' sizable="true" width="400px">
+									<tabbox>
+										<tabs id="tabs">
+											<tab id="D" label="Cenarios" />
+											<tab id="E" label="Descrição do projeto" />
+										</tabs>
+										<tabpanels>
+											<tabpanel>
+												<listbox height="100px" model="@bind(mvvm.gestaoDeProjetoVO.projetoVO.necessidadesDeNegocio)">
+													<template name="model">
+														<listitem draggable="true">
+															<listcell label="@bind(each.descricao)"></listcell>
+														</listitem>
+													</template>
+												</listbox>
+											</tabpanel>
+										</tabpanels>
+									</tabbox>
+								</window>
+								<window position="parent"   sizable="true">
+								<caption label="Recursos humanos" onDoubleClick='self.parent.setMode("overlapped")' onClick='self.parent.setMode("embedded")' width="400px"></caption>
+									<tabbox>
+										<tabs>
+											<tab label="Pessoas" />
+											<tab label="Funções" />
+										</tabs>
+										<tabpanels>
+											<tabpanel>
+												<listbox id="profissionais" model="@bind(mvvm.gestaoDeProjetoVO.partidaVO.jogoVO.profissionais)">
+													<listhead>
+														<listheader label="Nome" width="50%"></listheader>
+														<listheader label="Salário"></listheader>
+														<listheader label="Experiencia"></listheader>
+														<listheader label="Foto"></listheader>
+													</listhead>
+													<template name="model">
+														<listitem draggable="true" value="@bind(each)">
+															<listcell label="@bind(each.nome)"></listcell>
+															<listcell label="@bind(each.salario)" style="text-align:right">$</listcell>
+															<listcell label="@bind(each.experiencia)" style="text-align:right">(anos)</listcell>
+															<listcell style="text-align:center">
+																<image src="@bind(each.urlFoto)" height="30px" width="30px"></image>
+															</listcell>
+														</listitem>
+													</template>
+												</listbox>
+											</tabpanel>
+											<tabpanel>
+												<listbox sizedByContent="true"  multiple="true" id="qualificacoesNecessariasNoProjeto" model="@bind(mvvm.gestaoDeProjetoVO.projetoVO.qualificacoesNecessariasNoProjeto)">
+													<listhead>
+														<listheader label="Ordem" width="10%"></listheader>
+														<listheader label="Descição" width="60%"></listheader>
+														<listheader label="Dificuldade" width="15%"></listheader>
+														<listheader label="Icone" width="15%"></listheader>
+													</listhead>
+													<template name="model" var="qualificacao">
+														<listitem draggable="true" value="@load(qualificacao)">
+															<listcell label="@load(qualificacao.ordem)" style="text-align:right"></listcell>
+															<listcell label="@load(qualificacao.descricao)"></listcell>
+															<listcell label="@load(qualificacao.dificuldadeInerente)" style="text-align:right"></listcell>
+															<listcell style="text-align:center">
+																<image src="@load(qualificacao.urlIcone)" height="30px" width="30px"></image>
+															</listcell>
+														</listitem>
+													</template>
+												</listbox>
+											</tabpanel>
+										</tabpanels>
+									</tabbox>
+								</window>
+							</hbox>
+						</center>
+					</borderlayout>
+				</north>
+				<west title="A fazer" size="25%" flex="true" maxsize="250" splittable="true" collapsible="true">
+					<div style="background:orange">
+						<listboxjogo id="demanda" model="@bind(mvvm.gestaoDeProjetoVO.demandasAbertasOuConstruidas)" selectedItem="@bind(mvvm.demandaSelecionadaVO)">
+							<listhead>
+								<listheader label="Descrição" width="80%"></listheader>
+								<listheader label=""></listheader>
+							</listhead>
+							<template name="model" var="demanda">
+								<listitem draggable="true">
+									<listcell label="@bind(demanda.descricao)"></listcell>
+									<listcell>
+										<image src="/imagens/help.png" popup="demandas"></image>
+									</listcell>
+								</listitem>
+							</template>
+						</listboxjogo>
+						<popup id="demandas" width="80%">
+							<listboxjogo>
+								<listhead>
+									<listheader width="70%">
+										<label value="Descrição"></label>
+									</listheader>
+									<listheader>
+										<label value="Tamanho"></label>
+									</listheader>
+									<listheader>
+										<label value="Complexidade"></label>
+									</listheader>
+								</listhead>
+								<listitem>
+									<listcell>
+										<label value="@bind(mvvm.demandaSelecionadaVO.descricao)"></label>
+									</listcell>
+									<listcell>
+										<label value="@bind(mvvm.demandaSelecionadaVO.tamanho)"></label>
+									</listcell>
+									<listcell>
+										<label value="@bind(mvvm.demandaSelecionadaVO.complexidade)"></label>
+									</listcell>
+								</listitem>
+							</listboxjogo>
+							<div >
+								<listbox model="@bind(mvvm.demandaSelecionadaVO.itensDeTrabalho)">
+									<listhead>
+										<listheader>
+											<label value=""></label>
+										</listheader>
+										<listheader width="45%">
+											<label value="Descrição"></label>
+										</listheader>
+										<listheader>
+											<label value="Responsável"></label>
+										</listheader>
+										<listheader>
+											<label value="Foto"></label>
+										</listheader>
+										<listheader>
+											<label value="Experiencia(anos)"></label>
+										</listheader>
+										<listheader>
+											<label value="Qualidade do item"></label>
+										</listheader>
+									</listhead>
+									<template name="model" var="item">
+										<listitem>
+											<listcell>
+												<image src="@bind(item.funcaoVO.qualificacao.urlIcone)"></image>
+											</listcell>
+											<listcell>
+												<label value="@bind(item.funcaoVO.nome)"></label>
+											</listcell>
+											<listcell>
+												<label value="@bind(item.funcaoVO.recursoHumanoResponsavelVO.nome)"></label>
+											</listcell>
+											<listcell>
+												<image src="@bind(item.funcaoVO.recursoHumanoResponsavelVO.profissionalDeTIVO.urlFoto)"></image>
+											</listcell>
+											<listcell>
+												<label value="@bind(item.funcaoVO.recursoHumanoResponsavelVO.profissionalDeTIVO.experiencia)"></label>
+											</listcell>
+											<listcell>
+												<label value="@bind(item.qualidade)"></label>
+											</listcell>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</popup>
+					</div>
+				</west>
+				<center border="none" flex="false" title="Equipe" onDrop="@command('adicionaProfissionalNaEquipe',profissional=event.dragged)" droppable="true">
+					<hbox children="@bind(mvvm.equipe)" id="equipe" onCreate="@command('registraEmComponentsToMessageNotify',component=self)">
+						<template name="children" var="membroDaEquipe">
+							<panel width="300px" border="normal" collapsible="true" forEach="" droppable="true" onDrop="@command('adicionaFuncaoParaProficional',qualificacao=event.dragged,recursoHumano=membroDaEquipe)">
+								<caption height="30px" image="@bind(membroDaEquipe.profissionalDeTIVO.urlFoto)">
+									<hlayout>
+										<image src="@bind(membroDaEquipe.urlFotoStress)" onCreate="@command('registraEmComponentsToReload',component=self)" tooltiptext="Nível de estress"></image>
+										<progressmeter value="@load(membroDaEquipe.funcaoAtual.itemDeTrabalhoAtual.percentualDeConclusao)" width="100px" visible="@load(not empty membroDaEquipe.funcaoAtual.itemDeTrabalhoAtual.percentualDeConclusao)" onCreate="@command('registraEmComponentsToReload',component=self)"></progressmeter>
+										<label value="@load(membroDaEquipe.funcaoAtual.itemDeTrabalhoAtual.percentualDeConclusao)" onCreate="@command('registraEmComponentsToReload',component=self)" />
+										<label value="%" visible="@load(not empty membroDaEquipe.funcaoAtual.itemDeTrabalhoAtual.percentualDeConclusao)" onCreate="@command('registraEmComponentsToReload',component=self)"></label>
+									</hlayout>
+								</caption>
+								<panelchildren>
+									<tabbox>
+										<tabs>
+											<tab label="Funções" />
+											<tab label="Atividades concluidas" />
+										</tabs>
+										<tabpanels>
+											<tabpanel>
+												<grid height="200px">
+													<rows children="@bind(membroDaEquipe.funcoes)">
+														<template name="children" var="funcao">
+															<row height="50px" droppable="true" onDrop="@command('atribuirDemandaParaFuncao',itemDragged=event.dragged,recursoHumanoResponsavel=funcao.recursoHumanoResponsavelVO,funcao=funcao)" onCreate="@command('registraEmComponentsToReload',component=self)">
+																<groupbox mold="3d" closable="true">
+																	<caption label="@bind(funcao.nome)" image="@bind(funcao.qualificacao.urlIcone)">
+																		<progressmeter value="@load(funcao.itemDeTrabalhoAtual.percentualDeConclusao)" width="50px" visible="@load(funcao.itemDeTrabalhoAtual.estadoItem eq 'EM_EXECUÇÃO')" onCreate="@command('registraEmComponentsToReload',component=self)" />
+																	</caption>
+																	<vbox visible="@load(not empty funcao.itemDeTrabalhoAtual)">
+																		<label value="@bind(funcao.itemDeTrabalhoAtual.demandaVO.descricao)" />
+																		<hbox>
+																			<button label="iniciar" visible="@load(funcao.itemDeTrabalhoAtual.estadoItem eq 'ABERTO')" onClick="@command('iniciarItemDeTrabalho',itemDeTrabalhoAtual=funcao.itemDeTrabalhoAtual)" onCreate="@command('registraEmComponentsToReload',component=self)"></button>
+																			<button label="pausar" visible="@load(funcao.itemDeTrabalhoAtual.estadoItem eq 'EM_EXECUÇÃO')" onClick="@command('pausarItemDeTrabalho',itemDeTrabalhoAtual=funcao.itemDeTrabalhoAtual)" onCreate="@command('registraEmComponentsToReload',component=self)"></button>
+																			<button label="acelerar" visible="@load(funcao.itemDeTrabalhoAtual.estadoItem eq 'EM_EXECUÇÃO')" onClick="@command('acelerarItemDeTrabalho',itemDeTrabalhoAtual=funcao.itemDeTrabalhoAtual)" onCreate="@command('registraEmComponentsToReload',component=self)"></button>
+																		</hbox>
+																	</vbox>
+																</groupbox>
+															</row>
+														</template>
+													</rows>
+												</grid>
+											</tabpanel>
+											<tabpanel>
+												<grid height="300px">
+													<rows children="@bind(membroDaEquipe.funcoes)">
+														<template name="children" var="funcao">
+															<row height="50px">
+																<groupbox mold="3d" closable="true">
+																	<caption label="@load(funcao.nome)"></caption>
+																	<listboxjogo model="@load(funcao.itensDeTrabalhoFechados)">
+																		<listhead>
+																			<listheader label="Descrição" width="80%"></listheader>
+																			<listheader label="Duração"></listheader>
+																		</listhead>
+																		<template name="model" var="item">
+																			<listitem draggable="true">
+																				<listcell label="@load(item.demandaVO.descricao)"></listcell>
+																				<listcell label="@load(item.duracao)"></listcell>
+																			</listitem>
+																		</template>
+																	</listboxjogo>
+																</groupbox>
+															</row>
+														</template>
+													</rows>
+												</grid>
+											</tabpanel>
+										</tabpanels>
+									</tabbox>
+								</panelchildren>
+							</panel>
+						</template>
+					</hbox>
+				</center>
+				<east title="Pronto" size="25%" flex="true" maxsize="250" splittable="true" collapsible="true">
+					<div style="background:#B8D335" visible="@load(not empty mvvm.equipe)">
+						<listboxjogo model="@bind(mvvm.gestaoDeProjetoVO.demandasEntregues)">
+							<listhead>
+								<listheader label="Descrição" width="80%"></listheader>
+								<listheader label="Tamanho"></listheader>
+								<listheader label="Complexidade"></listheader>
+							</listhead>
+							<template name="model" var="demanda">
+								<listitem draggable="true">
+									<listcell label="@bind(demanda.descricao)"></listcell>
+									<listcell label="@bind(demanda.tamanho)"></listcell>
+									<listcell label="@bind(demanda.complexidade)"></listcell>
+								</listitem>
+							</template>
+						</listboxjogo>
+					</div>
+				</east>
+			</borderlayout>
+		</center>
+	</borderlayout>
+
+</window>

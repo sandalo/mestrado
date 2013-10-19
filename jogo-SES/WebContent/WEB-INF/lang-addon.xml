@@ -1,0 +1,19 @@
+<language-addon>
+    <addon-name>jogo</addon-name>
+    <language-name>xul/html</language-name>
+    <component>
+        <component-name>listboxjogo</component-name>
+        <extends>listbox</extends>
+        <component-class>br.sandalo.ufmg.dcc.jogo.visualizacao.componente.ListboxJogo</component-class>
+    </component>
+    <component>
+        <component-name>gridjogo</component-name>
+        <extends>grid</extends>
+        <component-class>br.sandalo.ufmg.dcc.jogo.visualizacao.componente.GridJogo</component-class>
+    </component>
+    <component>
+        <component-name>progressmeterjogo</component-name>
+        <extends>progressmeter</extends>
+        <component-class>br.sandalo.ufmg.dcc.jogo.visualizacao.componente.ProgressmeterJogo</component-class>
+    </component>
+</language-addon>

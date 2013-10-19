@@ -1,0 +1,272 @@
+<?page title="Auto Generated index.zul"?>
+<window title="Jogo" border="normal">
+	<borderlayout height="600px">
+		<center border="none" flex="true">
+			<borderlayout>
+				<north title="Execução do projeto" maxsize="300" size="30%" splittable="true" collapsible="true">
+					<borderlayout>
+						<center border="none" flex="false">
+							<tabbox>
+								<tabs id="tabs">
+									<tab id="c" label="Metricas do projeto" />
+									<tab id="D" label="Cenarios" />
+									<tab id="E" label="Descrição do projeto" />
+									<tab id="F" label="Recursos Humanos" />
+								</tabs>
+								<tabpanels>
+									<tabpanel>
+										<vbox>
+											<hbox>
+												<hbox>
+													<label value="Orcamento:" width="100px" style="font-weight:bold" />
+													<label value="1000" />
+													<label value="Tamanho estimado:" style="font-weight:bold" />
+													<label value="500 pf" />
+													<label value="Prazo:" style="font-weight:bold" />
+													<label value="4 meses" />
+												</hbox>
+											</hbox>
+											<hbox>
+												<label value="Conclusão do projeto...:" style="font-weight:bold" />
+												<progressmeter id="curr_met" value="60" width="800px" />
+												<label id="curr_step" value="60" />
+												<label value="%" />
+											</hbox>
+
+											<hbox>
+												<label value="Prazo de entrega...........:" style="font-weight:bold" />
+												<progressmeter value="80" width="800px" />
+												<label value="80" />
+												<label value="%" />
+											</hbox>
+											<hbox>
+												<label value="Orçamento gasto...........:" style="font-weight:bold" />
+												<progressmeter value="80" width="800px" />
+												<label value="80" />
+												<label value="%" />
+											</hbox>
+										</vbox>
+									</tabpanel>
+									<tabpanel>
+										<grid mold="paging" height="100px">
+											<columns>
+												<column label="Cenários"></column>
+											</columns>
+											<rows sclass="narrow">
+												<row draggable="true">
+													<label value="Arabic (ar)" />
+												</row>
+												<row draggable="true">
+													<label value="Hungarian (hu)" />
+												</row>
+												<row>
+													<label value="Slovenian (sl)" />
+												</row>
+												<row>
+													<label value="Arabic (ar)" />
+												</row>
+												<row>
+													<label value="Hungarian (hu)" />
+												</row>
+												<row>
+													<label value="Slovenian (sl)" />
+												</row>
+											</rows>
+										</grid>
+									</tabpanel>
+									<tabpanel></tabpanel>
+									<tabpanel></tabpanel>
+								</tabpanels>
+							</tabbox>
+						</center>
+					</borderlayout>
+				</north>
+				<west title="A fazer" size="25%" flex="true" maxsize="250" splittable="true" collapsible="true">
+					<div style="background:#B8D335">
+						<grid mold="paging" height="300px">
+							<rows>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Correção de bug 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+								<row height="50px">
+									<label value="Requisito 1" style="padding-left:15px" />
+								</row>
+							</rows>
+						</grid>
+					</div>
+				</west>
+				<center border="none" flex="false" title="Equipe">
+					<hbox>
+						<panel id="panel3" width="300px" border="normal" collapsible="true">
+							<caption height="30px" image="/imagens/ronaldo_fenomeno.jpg">
+								<hlayout>
+									<label value="Jose da silva" />
+
+									<label value="60" />
+									%
+									<progressmeter value="50" width="100px" />
+								</hlayout>
+							</caption>
+							<panelchildren>
+								<tabbox id="tb2">
+									<tabs>
+										<tab id="A2" label="Tarefas" />
+										<tab id="B2" label="Atividades concluidas" />
+										<tab id="B3" label="Curriculo/Perfil" />
+									</tabs>
+									<tabpanels>
+										<tabpanel>
+											<grid mold="paging" height="200px">
+												<rows>
+													<row height="50px">
+														<label value="Especificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Analise" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Desenho" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Codificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Inspeção" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="teste" style="padding-left:15px" />
+													</row>
+												</rows>
+											</grid>
+										</tabpanel>
+										<tabpanel>
+											<grid mold="paging" height="350px">
+												<rows>
+													<row height="50px">
+														<label value="Especificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Analise" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Desenho" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Codificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Inspeção" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="teste" style="padding-left:15px" />
+													</row>
+												</rows>
+											</grid>
+
+										</tabpanel>
+									</tabpanels>
+								</tabbox>
+							</panelchildren>
+						</panel>
+						<panel id="panel2" width="300px" border="normal" collapsible="true">
+							<caption height="30px" image="/imagens/ronaldo.jpg">
+								<hlayout>
+									<label value="Jose da silva" />
+
+									<label value="60" />
+									%
+									<progressmeter value="50" width="100px" />
+								</hlayout>
+							</caption>
+							<panelchildren>
+								<tabbox id="tb">
+									<tabs>
+										<tab id="A" label="Qualificacoes" />
+										<tab id="B" label="Atividades concluidas" />
+										<tab id="B4" label="Curriculo/Perfil" />
+									</tabs>
+									<tabpanels>
+										<tabpanel>
+											<grid mold="paging" height="200px">
+												<rows>
+													<row height="50px">
+														<label value="Especificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Analise" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Desenho" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Codificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Inspeção" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="teste" style="padding-left:15px" />
+													</row>
+												</rows>
+											</grid>
+										</tabpanel>
+										<tabpanel>
+											<grid mold="paging" height="200px">
+												<rows>
+													<row height="50px">
+														<label value="Especificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Analise" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Desenho" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Codificação" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="Inspeção" style="padding-left:15px" />
+													</row>
+													<row height="50px">
+														<label value="teste" style="padding-left:15px" />
+													</row>
+												</rows>
+											</grid>
+
+										</tabpanel>
+									</tabpanels>
+								</tabbox>
+							</panelchildren>
+						</panel>
+					</hbox>
+				</center>
+			</borderlayout>
+		</center>
+	</borderlayout>
+
+</window>
