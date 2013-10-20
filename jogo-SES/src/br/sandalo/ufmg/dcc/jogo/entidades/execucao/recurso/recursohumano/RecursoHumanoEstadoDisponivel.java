@@ -15,6 +15,7 @@ public class RecursoHumanoEstadoDisponivel extends RecursoHumanoEstado {
 	public void iniciarItemDeTrabalho(RecursoHumanoVO recursoHumanoVO, ItemDeTrabalhoVO itemDeTrabalhoVO) {
 		recursoHumanoVO.setEstado(RecursoHumanoEstado.getIntance(RecursoHumanoEstadoOcupado.class));
 		recursoHumanoVO.setFuncaoAtual(itemDeTrabalhoVO.getFuncaoVO());
-		itemDeTrabalhoVO.start();
+		itemDeTrabalhoVO.setEstadoItem(ItemDeTrabalhoVO.EstadoItem.EM_EXECUÇÃO);
+		recursoHumanoVO.notifyAll();
 	}
 }

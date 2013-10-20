@@ -30,9 +30,9 @@ public class GestaoDeProjetoMVVMThread extends Thread {
                 Executions.activate(_desktop);
                 try {
                 	for (Component component : _gestaoDeProjetoMVVM.getComponentsToMessageNotify()) {
-                		if(component.getAttribute("notificacao",Component.SESSION_SCOPE)!=null){
-                			 Clients.showNotification((String) component.getAttribute("notificacao",Component.SESSION_SCOPE), "middle_center", component, "middle_center", 2000);
-                			 component.setAttribute("notificacao",null);
+                		if(component.getAttribute("notificacao",Component.COMPONENT_SCOPE)!=null){
+                			 Clients.showNotification((String) component.getAttribute("notificacao",Component.COMPONENT_SCOPE), "middle_center", component, "middle_center", 2000);
+                			 component.setAttribute("notificacao",null,Component.COMPONENT_SCOPE);
                 		}
 					}
                 	for (Component component : _gestaoDeProjetoMVVM.getComponentsToReload()) {

@@ -8,6 +8,7 @@ import br.sandalo.ufmg.dcc.jogo.entidades.execucao.ordemdeserviço.DemandaVO;
 import br.sandalo.ufmg.dcc.jogo.entidades.execucao.recurso.FuncaoVO;
 import br.sandalo.ufmg.dcc.jogo.entidades.execucao.recurso.RecursoVO;
 import br.sandalo.ufmg.dcc.jogo.entidades.execucao.tarefas.ItemDeTrabalhoVO;
+import br.sandalo.ufmg.dcc.jogo.entidades.execucao.tarefas.RecursoHumanoVOThread;
 import br.sandalo.ufmg.dcc.jogo.entidades.projeto.ProfissionalDeTIVO;
 
 public class RecursoHumanoVO extends RecursoVO {
@@ -18,6 +19,7 @@ public class RecursoHumanoVO extends RecursoVO {
 	private FuncaoVO funcaoAtual;
 	private RecursoHumanoEstado estado;
 	private Integer nivelDeStress = new Integer(0);
+	private Thread theadDeExecução;
 
 	public RecursoHumanoVO() {
 	}
@@ -25,14 +27,11 @@ public class RecursoHumanoVO extends RecursoVO {
 	public RecursoHumanoVO(ProfissionalDeTIVO profissionalDeTIVO, GestaoDeProjetoVO gestaoDeProjetoVO) {
 		this.gestaoDeProjetoVO = gestaoDeProjetoVO;
 		this.profissionalDeTIVO = profissionalDeTIVO;
-/*		Set<QualificacaoVO> qualificacoes = getGestaoDeProjetoVO().getProjetoVO().getQualificacoesNecessariasNoProjeto();
-		for (QualificacaoVO qualificacao : qualificacoes) {
-			FuncaoVO funcaoVO = new FuncaoVO();
-			funcaoVO.setQualificacao(qualificacao);
-			funcaoVO.setRecursoHumanoResponsavelVO(this);
-			this.getFuncoes().add(funcaoVO);
-		}
-*/		estado = RecursoHumanoEstado.getIntance(RecursoHumanoEstadoDisponivel.class);
+		ThreadGroup threadGroup = getGestaoDeProjetoVO().getThreadGroup();
+		this.theadDeExecução = new Thread(threadGroup, new RecursoHumanoVOThread(this), this.getNome());
+		this.theadDeExecução.setPriority(Thread.MIN_PRIORITY);
+		this.theadDeExecução.start();
+		estado = RecursoHumanoEstado.getIntance(RecursoHumanoEstadoDisponivel.class);
 	}
 
 	public ProfissionalDeTIVO getProfissionalDeTIVO() {
@@ -64,7 +63,7 @@ public class RecursoHumanoVO extends RecursoVO {
 		estado.recebeDemanda(demandaVO, funcaoVO, this);
 	}
 
-	public void iniciarItemDeTrabalho(ItemDeTrabalhoVO itemDeTrabalhoVO) {
+	public synchronized void iniciarItemDeTrabalho(ItemDeTrabalhoVO itemDeTrabalhoVO) {
 		estado.iniciarItemDeTrabalho(this, itemDeTrabalhoVO);
 	}
 
@@ -99,20 +98,45 @@ public class RecursoHumanoVO extends RecursoVO {
 	}
 
 	public String getUrlFotoStress() {
-		if(nivelDeStress >= 0 && nivelDeStress < 5)
+		if (nivelDeStress >= 0 && nivelDeStress < 5)
 			return "/imagens/estress01.png";
-		if(nivelDeStress >=5 && nivelDeStress < 10)
+		if (nivelDeStress >= 5 && nivelDeStress < 10)
 			return "/imagens/estress02.png";
-		if(nivelDeStress >=10)
+		if (nivelDeStress >= 10)
 			return "/imagens/estress03.png";
 		return "";
 	}
 
 	public void setUrlFotoStress(String urlFotoStress) {
-		//this.urlFotoStress = urlFotoStress;
+		// this.urlFotoStress = urlFotoStress;
 	}
 
 	public Integer getNivelDeStress() {
 		return nivelDeStress;
 	}
+
+	public Thread getTheadDeExecução() {
+		return theadDeExecução;
+	}
+	
+	public synchronized void veirificaSeExisteItemParaTrabalhar() throws InterruptedException {
+		while (iniciando() || disponivel()) {
+			wait();
+		}
+	}
+
+	private boolean iniciando() {
+		FuncaoVO funcaoAtual = getFuncaoAtual();
+		if (funcaoAtual == null)
+			return true;
+		ItemDeTrabalhoVO itemDeTrabalhoVO = funcaoAtual.getItemDeTrabalhoAtual();
+		if (itemDeTrabalhoVO == null)
+			return true;
+		return false;
+	}
+
+	private boolean disponivel() {
+		return getEstado() instanceof RecursoHumanoEstadoDisponivel;
+	}
+
 }

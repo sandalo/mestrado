@@ -16,19 +16,15 @@ public class ItemDeTrabalhoVO implements Comparable<ItemDeTrabalhoVO> {
 	private FuncaoVO funcaoVO;
 	private Integer realizado=0;
 	private Integer urgencia = 1;
-	private Thread theadDeExecução;
 	private Date criacao;
 	private Date inicio;
 	private Date fim;
 	private Integer qualidade = 7;
 
 	public ItemDeTrabalhoVO(FuncaoVO funcaoVO,DemandaVO demandaVO) {
-		ThreadGroup threadGroup = funcaoVO.getRecursoHumanoResponsavelVO().getGestaoDeProjetoVO().getThreadGroup();
 		this.criacao = new Date();
 		this.demandaVO=demandaVO;
 		this.funcaoVO = funcaoVO;
-		this.theadDeExecução = new Thread(threadGroup,new ItemDeTrabalhoThread(this),this.demandaVO.getDescricao());
-		this.theadDeExecução.setPriority(Thread.MIN_PRIORITY);
 	}
 
 	public enum EstadoItem {
@@ -110,16 +106,6 @@ public class ItemDeTrabalhoVO implements Comparable<ItemDeTrabalhoVO> {
 		this.estadoItem = estadoItem;
 	}
 
-	public void start() {
-		this.setEstadoItem(ItemDeTrabalhoVO.EstadoItem.EM_EXECUÇÃO);
-		theadDeExecução.start();
-	}
-
-	public void stop() {
-		this.setEstadoItem(ItemDeTrabalhoVO.EstadoItem.ABERTO);
-		theadDeExecução.stop();// TODO: Rever
-	}
-
 	public void aumentaUrgencia() {
 		if (urgencia < 10)
 			urgencia = urgencia + 1;
@@ -191,7 +177,7 @@ public class ItemDeTrabalhoVO implements Comparable<ItemDeTrabalhoVO> {
 		System.out.println("Resul: " + engine.get("vel"));
 	}
 	
-	public static boolean recursoPossuiQualificacaoParaExecutarEsteItem(ItemDeTrabalhoVO itemDeTrabalhoVO) {
+	public static boolean quemConstruiuEsteItemPossuiQualificacao(ItemDeTrabalhoVO itemDeTrabalhoVO) {
 		boolean recursoPossuiQualificacaoParaExecutarEsteItem = false;
 		Set<QualificacaoVO> qualificacoes = itemDeTrabalhoVO.getFuncaoVO().getRecursoHumanoResponsavelVO().getProfissionalDeTIVO().getQualificacoes();
 		for (QualificacaoVO qualificacaoVO : qualificacoes) {

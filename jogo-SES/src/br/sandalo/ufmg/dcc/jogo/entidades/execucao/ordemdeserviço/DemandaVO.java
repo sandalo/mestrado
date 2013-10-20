@@ -7,7 +7,7 @@ import br.sandalo.ufmg.dcc.jogo.entidades.execucao.tarefas.ItemDeTrabalhoVO;
 
 public class DemandaVO implements Comparable<DemandaVO> {
 	public enum Estado{
-		ABERTA, EXECUTANDO, CONSTRUIDA, ENTREGUE
+		ABERTA, EXECUTANDO, CONSTRUIDA, ENTREGUE, PENDENTE
 	}
 	
 	private Estado estado = Estado.ABERTA;

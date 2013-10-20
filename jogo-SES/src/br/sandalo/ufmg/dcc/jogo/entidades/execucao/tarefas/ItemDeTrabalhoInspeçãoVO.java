@@ -17,11 +17,9 @@ public class ItemDeTrabalhoInspeçãoVO extends ItemDeTrabalhoVO{
 	@Override
 	public void fecha() {
 		ItemDeTrabalhoCodificaçãoVO itemDeTrabalhoCodificaçãoVO = ItemDeTrabalhoCodificaçãoVO.recuperaUltimoCodigoDaDemanda(getDemandaVO());
-		boolean possuiQualificacao = ItemDeTrabalhoVO.recursoPossuiQualificacaoParaExecutarEsteItem(itemDeTrabalhoCodificaçãoVO);
+		boolean possuiQualificacao = ItemDeTrabalhoVO.quemConstruiuEsteItemPossuiQualificacao(itemDeTrabalhoCodificaçãoVO);
 		Integer qualidade = itemDeTrabalhoCodificaçãoVO.getQualidade();
 		int qualidadeGarantida = 3;
-
-
 		
 		itemDeTrabalhoCodificaçãoVO.setQualidade(qualidadeGarantida);//Só por fazer a inspeção ganha 3 pontos de qualidade
 		double qualidadePelaQualificacao = 0;
@@ -37,6 +35,5 @@ public class ItemDeTrabalhoInspeçãoVO extends ItemDeTrabalhoVO{
 			Integer tamanho = (int) (itemDeTrabalhoCodificaçãoVO.getDemandaVO().getTamanho()*.3);
 			ItemDeTrabalhoCodificaçãoVO.registraBug(itemDeTrabalhoCodificaçãoVO, complexidade, descricao, tamanho);
 		}
-		getDemandaVO().setEstado(DemandaVO.Estado.CONSTRUIDA);
 	}
 }

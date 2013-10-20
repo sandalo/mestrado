@@ -28,9 +28,10 @@ public class ItemDeTrabalhoIntegraçãoVO extends ItemDeTrabalhoVO {
 
 		if(ItemDeTrabalhoCodificaçãoVO.possuiErros(itemDeTrabalhoCodificaçãoVO)){
 			ItemDeTrabalhoCodificaçãoVO.registraBug(itemDeTrabalhoCodificaçãoVO,complexidade,descricao,tamanho);
+			getDemandaVO().setEstado(DemandaVO.Estado.PENDENTE);
+		}else{
+			getDemandaVO().setEstado(DemandaVO.Estado.ENTREGUE);
 		}
-		System.out.println();
-		getDemandaVO().setEstado(DemandaVO.Estado.ENTREGUE);
 	}
 
 

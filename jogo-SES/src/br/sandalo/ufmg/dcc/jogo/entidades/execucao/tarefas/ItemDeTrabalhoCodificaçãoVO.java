@@ -26,7 +26,7 @@ public class ItemDeTrabalhoCodificaçãoVO extends ItemDeTrabalhoVO {
 
 
 	public void defineQualidade() {
-		boolean possuiQualificacao = ItemDeTrabalhoVO.recursoPossuiQualificacaoParaExecutarEsteItem(this);
+		boolean possuiQualificacao = ItemDeTrabalhoVO.quemConstruiuEsteItemPossuiQualificacao(this);
 		
 		Integer nivelDeEstress = getFuncaoVO().getRecursoHumanoResponsavelVO().getNivelDeStress();// 15
 		Integer experiencia = getFuncaoVO().getRecursoHumanoResponsavelVO().getProfissionalDeTIVO().getExperiencia();
@@ -95,11 +95,7 @@ public class ItemDeTrabalhoCodificaçãoVO extends ItemDeTrabalhoVO {
 	}
 
 	public static void registraBug(ItemDeTrabalhoCodificaçãoVO itemDeTrabalhoCodificaçãoVO, Integer complexidade, String descricao, Integer tamanho) {
-		BugVO bugVO = new BugVO();
-		bugVO.setComplexidade(complexidade);
-		bugVO.setDescricao("Bug: " + descricao);
-		bugVO.setTamanho(tamanho);
-		bugVO.setEstado(DemandaVO.Estado.ABERTA);
+		BugVO bugVO = new BugVO(complexidade,descricao,tamanho);
 		itemDeTrabalhoCodificaçãoVO.getFuncaoVO().getRecursoHumanoResponsavelVO().getGestaoDeProjetoVO().getDemandas().add(bugVO);
 	}
 }

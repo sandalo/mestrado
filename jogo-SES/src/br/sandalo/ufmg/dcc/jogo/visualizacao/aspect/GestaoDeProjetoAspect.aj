@@ -21,7 +21,7 @@ public aspect GestaoDeProjetoAspect {
 	pointcut criaGridJogo(GridJogo gridjogo): execution(br.sandalo.ufmg.dcc.jogo.visualizacao.componente.GridJogo.new())&&this(gridjogo);
 	pointcut criaProgressmeterJogo(ProgressmeterJogo progressmeterJogo): execution(br.sandalo.ufmg.dcc.jogo.visualizacao.componente.ProgressmeterJogo.new())&&this(progressmeterJogo);
 	pointcut fechaItem(): execution(* br.sandalo.ufmg.dcc.jogo.entidades.execucao.tarefas.ItemDeTrabalhoVO+.fecha());
-	pointcut criaBug(BugVO bugVO): execution(br.sandalo.ufmg.dcc.jogo.entidades.execucao.ordemdeserviço.BugVO.new())&&this(bugVO);
+	pointcut criaBug(BugVO bugVO): execution(br.sandalo.ufmg.dcc.jogo.entidades.execucao.ordemdeserviço.BugVO.new(Integer,String , Integer))&&this(bugVO);
 
 	after(GestaoDeProjetoMVVM gestaoDeProjetoMVVM): iniciaJogo( gestaoDeProjetoMVVM){
 		this.gestaoDeProjetoMVVM = gestaoDeProjetoMVVM;
@@ -53,8 +53,7 @@ public aspect GestaoDeProjetoAspect {
 		List<Component> components = gestaoDeProjetoMVVM.getComponentsToMessageNotify();
 		for (Component component : components) {
 			if(component.getId().equals("equipe")){
-				component.setAttribute("notificacao", bugVO.getDescricao(),Component.SESSION_SCOPE);
-				component.getAttributes(Component.SESSION_SCOPE);
+				component.setAttribute("notificacao", bugVO.getDescricao(),Component.COMPONENT_SCOPE);
 				System.out.println();
 			}
 		}

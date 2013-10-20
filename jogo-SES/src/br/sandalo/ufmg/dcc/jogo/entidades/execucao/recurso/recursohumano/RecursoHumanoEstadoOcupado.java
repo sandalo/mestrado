@@ -11,7 +11,8 @@ public class RecursoHumanoEstadoOcupado extends RecursoHumanoEstado {
 	
 	@Override
 	public void pausarItemDeTrabalho(ItemDeTrabalhoVO itemDeTrabalhoVO) {
-		itemDeTrabalhoVO.stop();
+		itemDeTrabalhoVO.getFuncaoVO().getRecursoHumanoResponsavelVO().getTheadDeExecução().stop();
+		itemDeTrabalhoVO.setEstadoItem(ItemDeTrabalhoVO.EstadoItem.ABERTO);
 	}
 	
 	@Override

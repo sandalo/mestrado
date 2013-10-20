@@ -33,7 +33,7 @@
 													<cell>
 														<hbox>
 															<progressmeterjogo id="curr_met" value="@load(mvvm.gestaoDeProjetoVO.percentualDeConclusao)" width="100px" />
-															<label id="curr_step" value="@load(mvvm.gestaoDeProjetoVO.percentualDeConclusao)" />
+															<label id="curr_step" value="@load(mvvm.gestaoDeProjetoVO.percentualDeConclusao)" onCreate="@command('registraEmComponentsToReload',component=self)"/>
 															<label value="%" />
 														</hbox>
 													</cell>
